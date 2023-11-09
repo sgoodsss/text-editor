@@ -1,19 +1,19 @@
 {
   "name": "JATE",
   "version": "1.0.0",
-  "description": "",
+  "description": "A text editor that runs in the browser. This app is a single-page application that meets the PWA criteria. Additionally, this app features a number of data persistence techniques that serve as redundancy in case one of the options is not supported by the browser. The application also functions offline.",
   "main": "server.js",
   "scripts": {
-    "start:dev": "",
-    "start": "",
-    "server": "",
-    "build": "",
-    "install": "",
-    "client": ""
+    "start:dev": "concurrently \"cd client && npm run dev\" \"cd server && npm run server\" ",
+    "start": "npm run build && cd server && node server.js",
+    "server": "cd server server.js --ignore client",
+    "build": "cd client && npm run build",
+    "install": "cd server && npm i && cd ../client && npm i",
+    "client": "cd client && npm start"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Sarah Goodell",
+  "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",
     "if-env": "^1.0.4"
