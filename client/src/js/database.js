@@ -17,20 +17,20 @@ export const putDb = async (content) => {
   console.log('Post to the database');
 
   // Create a connection to the database and version we want to use.
-  const texteditorDb = await openDB('texteditor', 1);
+  const jateDb = await openDB('jate', 1);
 
   // Create a new transaction and specify the database and data privileges.
-  const tx = texteditorDb.transaction('texteditor', 'readwrite');
+  const tx = jateDb.transaction('jate', 'readwrite');
 
   // Open up the desired object store.
-  const store = tx.objectStore('texteditor');
+  const store = tx.objectStore('jate');
 
   // Use the .add() method on the store and pass in the content.
-  const request = store.add({ texteditor: content });
+  const request = store.put({ id: 1, value: content });
 
   // Get confirmation of the request.
-  const result = await request;
-  console.log('Data saved to the database', result);
+  await request;
+  // console.log('Data saved to the database', result?.value);
 };
 
 // TODO: Add logic for a method that gets all the content from the database
@@ -38,21 +38,21 @@ export const getDb = async () => {
   console.log('GET all from the database');
 
   // Create a connection to the database database and version we want to use.
-  const texteditorDb = await openDB('texteditor', 1);
+  const jateDb = await openDB('jate', 1);
 
   // Create a new transaction and specify the database and data privileges.
-  const tx = texteditorDb.transaction('texteditor', 'readonly');
+  const tx = jateDb.transaction('jate', 'readonly');
 
   // Open up the desired object store.
-  const store = tx.objectStore('texteditor');
+  const store = tx.objectStore('jate');
 
   // Use the .getAll() method to get all data in the database.
-  const request = store.getAll();
+  const request = store.get(1);
 
   // Get confirmation of the request.
   const result = await request;
-  console.log('result.value', result);
-  return result;
+  console.log('result.value', result?.value);
+  return result?.value;
 };
 
 initdb();
